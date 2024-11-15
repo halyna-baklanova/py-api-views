@@ -62,11 +62,18 @@ class CinemaHallSerializer(serializers.Serializer):
         return instance
 
 
-
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=255)
     description = serializers.CharField()
+    genres = serializers.PrimaryKeyRelatedField(
+        queryset=Genre.objects.all(),
+        many=True
+    )
+    actors = serializers.PrimaryKeyRelatedField(
+        queryset=Actor.objects.all(),
+        many=True
+    )
     duration = serializers.IntegerField()
 
     def create(self, validated_data):
@@ -80,5 +87,14 @@ class MovieSerializer(serializers.Serializer):
         instance.duration = validated_data.get(
             "duration", instance.duration
         )
+        if "actors" in validated_data:
+            actors = validated_data.pop("authors")
+            instance.authors.set(actors)
+
+        if "genres" in validated_data:
+            genres = validated_data.pop("genres")
+            instance.authors.set(genres)
+
+        return instance
         instance.save()
         return instance
