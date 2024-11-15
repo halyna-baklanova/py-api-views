@@ -11,17 +11,15 @@ from cinema.views import (
 )
 
 router = routers.DefaultRouter()
+router.register("movies", MovieViewSet)
 
-router.register("movie", MovieViewSet)
-
-cinemahall_list = CinemaHallViewSet.as_view(
+cinema_hall_list = CinemaHallViewSet.as_view(
     actions={
         "get": "list",
-        "post": "create",
+        "post": "create"
     }
 )
-
-cinemahall_detail = CinemaHallViewSet.as_view(
+cinema_hall_detail = CinemaHallViewSet.as_view(
     actions={
         "get": "retrieve",
         "put": "update",
@@ -63,30 +61,21 @@ urlpatterns = [
         name="actor_list"
     ),
     path(
-        "actor/<int:pk>/",
+        "actors/<int:pk>/",
         ActorDetail.as_view(),
         name="actor_detail"
     ),
     path(
-        "cinemahalls/",
-        cinemahall_list,
-        name="cinemahall_list"
+        "cinema_halls/",
+        cinema_hall_list,
+        name="cinema_hall_list"
     ),
     path(
-        "cinemahall/<int:pk>/",
-        cinemahall_detail,
-        name="cinemahall_detail"
+        "cinema_halls/<int:pk>/",
+        cinema_hall_detail,
+        name="cinema_hall_detail"
     ),
-    path(
-        "movies/",
-        include(router.urls),
-        name="movie_list"
-    ),
-    path(
-        "movies/<int:pk>/",
-        include(router.urls),
-        name="movie_detail"
-    ),
+    path("", include(router.urls))
 ]
 
 app_name = "cinema"
