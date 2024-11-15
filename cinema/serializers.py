@@ -95,6 +95,5 @@ class MovieSerializer(serializers.Serializer):
             genres = validated_data.pop("genres")
             instance.authors.set(genres)
 
-        return instance
         instance.save()
         return instance
