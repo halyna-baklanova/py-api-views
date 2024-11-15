@@ -11,22 +11,22 @@ from cinema.views import (
 
 urlpatterns = [
     path(
-        "api/cinema/genres/",
+        "genres/",
         GenreList.as_view(),
         name="genre-list"
     ),
     path(
-        "api/cinema/genres/<int:pk>/",
+        "genres/<int:pk>/",
         GenreDetail.as_view(),
         name="genre-detail"
     ),
 path(
-        "api/cinema/actors/",
+        "actors/",
         ActorList.as_view(),
         name="actor-list"
     ),
     path(
-        "api/cinema/actor/<int:pk>/",
+        "actor/<int:pk>/",
         ActorDetail.as_view(),
         name="actor-detail"
     ),
